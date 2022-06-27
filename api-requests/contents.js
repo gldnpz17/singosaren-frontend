@@ -102,7 +102,7 @@ const fetchContentIdentifiersQuery = gql`
 async function fetchContentIdentifiers() {
   const { data } = await gqlClient.query({ query: fetchContentIdentifiersQuery })
 
-  return data.content.data
+  return data.contents.data
 }
 
 const fetchTagContentsQuery = gql`
