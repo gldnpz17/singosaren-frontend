@@ -5,6 +5,7 @@ import { DateTime } from 'luxon'
 import TagButton from "../../components/TagButton"
 import ReactMarkdown from 'react-markdown'
 import { fetchContentById, fetchContentIdentifiers } from "../../api-requests/contents"
+import remarkGfm from "remark-gfm"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -42,7 +43,9 @@ export default function ContentDetails({ content }) {
         </div>
       </div>
       <img className='mb-4' src={content.coverImageUrl} />
-      <ReactMarkdown>{content.body}</ReactMarkdown>
+      <div className='prose prose-slate'>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.body}</ReactMarkdown>
+      </div>
     </div>
   )
 }
