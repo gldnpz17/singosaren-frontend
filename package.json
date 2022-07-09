@@ -11,10 +11,12 @@
     "@react-three/fiber": "^8.0.27",
     "@tailwindcss/typography": "^0.5.2",
     "graphql": "^16.5.0",
+    "leaflet": "^1.8.0",
     "luxon": "^2.4.0",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-leaflet": "^4.0.1",
     "react-markdown": "^8.0.3",
     "remark-gfm": "^3.0.1",
     "three": "^0.142.0"
