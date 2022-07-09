@@ -1,5 +1,6 @@
 import { gql } from '@apollo/client'
 import { gqlClient } from '../common/gqlClient'
+import { mapContentSimple } from '../common/mapper/contents'
 
 const fetchTourismPotentialMapDataQuery = gql`
   query FetchTourismPotentialMapData {
@@ -111,6 +112,31 @@ const fetchAllTourismPotentialsQuery = gql`
         attributes {
           name
           description
+          contents {
+            data {
+              id
+              attributes {
+                title
+                author
+                coverImage {
+                  data {
+                    attributes {
+                      url
+                    }
+                  }
+                }
+                publishedAt,
+                tags {
+                  data {
+                    id
+                    attributes {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -125,10 +151,13 @@ async function fetchAllTourismPotentials() {
   return tourismPotentials.map(tourismPotential => {
     const { id, attributes } = tourismPotential
 
+    console.log(attributes.contents.data)
+
     return ({
       id,
       name: attributes.name,
-      description: attributes.description
+      description: attributes.description,
+      contents: attributes.contents.data.map(mapContentSimple)
     })
   })
 }
