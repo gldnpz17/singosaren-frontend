@@ -151,8 +151,6 @@ async function fetchAllTourismPotentials() {
   return tourismPotentials.map(tourismPotential => {
     const { id, attributes } = tourismPotential
 
-    console.log(attributes.contents.data)
-
     return ({
       id,
       name: attributes.name,

@@ -14,7 +14,6 @@ function MapMarker({ markerIcon, marker: { id, name, x, y, coverImageUrl, facili
           mouseout: function (e) {
           },
           mouseover: function(e) {
-            console.log(e.target.marginTop, e.target.marginLeft)
           }
         }} 
         position={[x, y]} 
