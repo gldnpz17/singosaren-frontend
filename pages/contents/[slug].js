@@ -52,7 +52,7 @@ export default function ContentDetails({
   }
 }) {
   return (
-    <div className='mx-96 my-28'>
+    <div className='mx-8 sm:mx-12 md:mx-28 lg:mx-56 xl:mx-80 my-8 md:my-12 xl:my-28'>
       <img className='mb-4 rounded' src={coverImageUrl} />
       <div className='mb-4'>
         <div className='mt-1 mb-2 flex space-x-2 items-center'>
@@ -66,21 +66,21 @@ export default function ContentDetails({
         <div className='mb-2 font-sans-serif font-semibold'>{author}</div>
         <h1 className='mb-2 text-2xl font-sans-serif font-semibold'>{title}</h1>
         <div className='mb-2 text-gray-500 font-sans-serif'>{publicationTime}</div>
-        <hr />
       </div>
+      <hr className='mb-4' />
       <div className='prose prose-slate'>
         <ReactMarkdown 
           remarkPlugins={[remarkGfm]}
           components={{
             img: ({ node, ...props }) => (
-              <div>
-                <img {...props} className={`${props.className} rounded mb-0`} />
-                <div className='text-gray-500'>{props.alt}</div>
-              </div>
+              <span>
+                <img {...props} className={`${props.className ?? ''} rounded mb-0`} />
+                <span className='text-gray-500'>{props.alt}</span>
+              </span>
             )
           }}
         >
-            {body}
+          {body}
         </ReactMarkdown>
       </div>
     </div>

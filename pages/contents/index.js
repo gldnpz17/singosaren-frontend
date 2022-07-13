@@ -21,14 +21,14 @@ export default function Contents({ tags, contents }) {
   const router = useRouter()
 
   return (
-    <div className="mt-8 mx-56 flex flex-col items-center">
+    <div className="mt-8 mx-4 xl:mx-56 md:mx-12 lg:mx-32 flex flex-col items-center">
       <div className='mb-6 w-full'>
         <div className='font-medium mb-2'>Pencarian</div>
         <div className='w-full mb-4'>
           <SearchField />
         </div>
         <div className='font-medium'>Kategori artikel</div>
-        <div className='flex items-center mt-2 space-x-2'>
+        <div className='flex items-center mt-2 space-x-2 w-full overflow-x-auto'>
           {tags.map(tag => (
             <TagButton
               key={tag.id}
@@ -38,7 +38,7 @@ export default function Contents({ tags, contents }) {
           ))}
         </div>
       </div>
-      <div className='grid grid-cols-3 gap-20'>
+      <div className='grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4'>
         {contents.map(content => (
           <ContentCard key={content.id} content={content} />
         ))}
