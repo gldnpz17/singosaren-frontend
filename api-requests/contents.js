@@ -146,13 +146,7 @@ const fetchTagContentsQuery = gql`
 async function fetchTagContents(tagId) {
   const { data } = await gqlClient.query({ query: fetchTagContentsQuery, variables: { tagId } }) 
 
-  return ({
-    tag: {
-      name: data.tag.data.attributes.name,
-      description: data.tag.data.attributes.description
-    },
-    contents: data.tag.data.attributes.contents.data.map(mapContentSimple)
-  })
+  return data.tag.data.attributes.contents.data.map(mapContentSimple)
 }
 
 export { fetchAllContents, fetchContentIdentifiers, fetchContentById, fetchTagContents }

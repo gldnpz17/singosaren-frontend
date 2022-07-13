@@ -1,5 +1,5 @@
 export default function SearchField() {
   return (
-    <input className='text-lg border border-gray-500 p-2 rounded-md w-full' placeholder='Cari konten' />
+    <input className='border border-gray-200 text-gray-400 p-3 rounded w-full' placeholder='Cari Artikel...' />
   )
 }

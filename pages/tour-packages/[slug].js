@@ -19,8 +19,6 @@ export async function getStaticProps({ params }) {
   const splitParams = params.slug.split('-')
   const id = splitParams[splitParams.length - 1]
 
-  console.log(await fetchTourPackageById(id))
-
   return ({
     props: {
       tourPackage: await fetchTourPackageById(id)

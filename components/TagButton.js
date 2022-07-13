@@ -1,10 +1,12 @@
 import slugify from "../common/slugify";
 
-export default function TagButton({ tag: { id, name } }) {
+export default function TagButton({ tag: { id, name }, active }) {
+
+
   return (
     <a
-      href={`/contents/tags/${slugify(name)}-${id}`}
-      className='p-1 rounded-md border border-gray-500'
+      href={active ? '/contents' : `/contents?tag=${id}`}
+      className={`py-2 px-4 rounded ${active ? 'bg-indigo-300' : 'bg-indigo-100'}  text-indigo-700 font-medium`}
     >
       {name}
     </a>

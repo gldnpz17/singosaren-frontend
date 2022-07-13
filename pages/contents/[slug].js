@@ -2,7 +2,6 @@ import { gqlClient } from "../../common/gqlClient"
 import { gql } from '@apollo/client'
 import slugify from "../../common/slugify"
 import { DateTime } from 'luxon'
-import TagButton from "../../components/TagButton"
 import ReactMarkdown from 'react-markdown'
 import { fetchContentById, fetchContentIdentifiers } from "../../api-requests/contents"
 import remarkGfm from "remark-gfm"
@@ -31,20 +30,58 @@ export async function getStaticProps({ params }) {
   })
 }
 
-export default function ContentDetails({ content }) {
+function TagButton({ tag: { id, name } }) {
   return (
-    <div className='mx-80 my-28'>
+    <a
+      className='font-semibold font-sans-serif text-indigo-600'
+      href={`/contents?tag=${id}`}
+    >
+      {name}
+    </a>
+  )
+}
+
+export default function ContentDetails({ 
+  content: {
+    coverImageUrl,
+    tags,
+    author,
+    title,
+    publicationTime,
+    body
+  }
+}) {
+  return (
+    <div className='mx-96 my-28'>
+      <img className='mb-4 rounded' src={coverImageUrl} />
       <div className='mb-4'>
-        <h1 className='text-2xl'>{content.title}</h1>
-        <p>Oleh {content.author} pada {content.publicationTime}</p>
-        <div className='mt-1 flex space-x-2 items-center'>
-          <span>Tags: </span>
-          {content.tags.map(tag => <TagButton tag={tag} />)}
+        <div className='mt-1 mb-2 flex space-x-2 items-center'>
+          {tags.map(tag => 
+            <TagButton
+              key={tag.id}
+              tag={tag}
+            />
+          )}
         </div>
+        <div className='mb-2 font-sans-serif font-semibold'>{author}</div>
+        <h1 className='mb-2 text-2xl font-sans-serif font-semibold'>{title}</h1>
+        <div className='mb-2 text-gray-500 font-sans-serif'>{publicationTime}</div>
+        <hr />
       </div>
-      <img className='mb-4' src={content.coverImageUrl} />
       <div className='prose prose-slate'>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{content.body}</ReactMarkdown>
+        <ReactMarkdown 
+          remarkPlugins={[remarkGfm]}
+          components={{
+            img: ({ node, ...props }) => (
+              <div>
+                <img {...props} className={`${props.className} rounded mb-0`} />
+                <div className='text-gray-500'>{props.alt}</div>
+              </div>
+            )
+          }}
+        >
+            {body}
+        </ReactMarkdown>
       </div>
     </div>
   )
