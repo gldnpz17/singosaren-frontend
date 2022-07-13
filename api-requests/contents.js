@@ -4,40 +4,64 @@ import { gqlClient } from "../common/gqlClient"
 import { mapContentSimple } from "../common/mapper/contents"
 import { mapTagsSimple } from "../common/mapper/tags"
 
-const fetchAllContentsQuery = gql`
-  query FetchAllContents {
-    contents {
-      data {
-        id
-        attributes {
-          title
-          author
-          publishedAt
-          coverImage {
-            data {
-              attributes {
-                url
+async function fetchContents(page=1, tagId=null) {
+  let pageSize = 12
+  try {
+    pageSize = Number.parseInt(process.env.NEXT_PUBLIC_PAGINATION_PAGE_SIZE)
+  } catch { console.log('Page size not set. Using the default value (12).') }
+
+  const filterParams = []
+  const filters = []
+  if (tagId) {
+    filterParams.push('$tagId: ID')
+    filters.push('tags: { id: { eq: $tagId } }')
+  }
+
+  const filterParamsString = filterParams.length > 0 ? `, ${filterParams.join(', ')}` : ''
+  const filtersString = filters.length > 0 ? `, filters: { ${filters.join(', ')} }` : ''
+
+  const query = gql`
+    query FetchContents($page: Int, $pageSize: Int${filterParamsString}) {
+      contents(pagination: { page: $page, pageSize: $pageSize }, sort: "publishedAt:desc"${filtersString}) {
+        meta {
+          pagination {
+            pageCount
+            page
+          }
+        }
+        data {
+          id
+          attributes {
+            title
+            author
+            publishedAt
+            coverImage {
+              data {
+                attributes {
+                  url
+                }
               }
             }
-          }
-          tags {
-            data {
-              id
-              attributes {
-                name
+            tags {
+              data {
+                id
+                attributes {
+                  name
+                }
               }
             }
           }
         }
       }
     }
-  }
-`
+  `
 
-async function fetchAllContents() {
-  const { data } = await gqlClient.query({ query: fetchAllContentsQuery })
+  const { data } = await gqlClient.query({ query, variables: { page, pageSize, tagId } })
 
-  return data.contents.data.map(mapContentSimple)
+  return ({
+    meta: data.contents.meta,
+    contents: data.contents.data.map(mapContentSimple)
+  })
 }
 
 const fetchContentByIdQuery = gql`
@@ -105,48 +129,4 @@ async function fetchContentIdentifiers() {
   return data.contents.data
 }
 
-const fetchTagContentsQuery = gql`
-  query FetchTagContents($tagId: ID) {
-    tag(id: $tagId) {
-      data {
-        attributes {
-          name
-          description
-          contents {
-            data {
-              id
-              attributes {
-                title
-                author
-                publishedAt
-                coverImage {
-                  data {
-                    attributes {
-                      url
-                    }
-                  }
-                }
-                tags {
-                  data {
-                    id
-                    attributes {
-                      name
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
-async function fetchTagContents(tagId) {
-  const { data } = await gqlClient.query({ query: fetchTagContentsQuery, variables: { tagId } }) 
-
-  return data.tag.data.attributes.contents.data.map(mapContentSimple)
-}
-
-export { fetchAllContents, fetchContentIdentifiers, fetchContentById, fetchTagContents }
+export { fetchContents, fetchContentIdentifiers, fetchContentById }
