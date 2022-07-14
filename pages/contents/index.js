@@ -10,12 +10,14 @@ import {
 } from "../../api-requests/contents";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
 export async function getServerSideProps({ query }) {
-  const tag = query.tag ?? null
+  const tagId = query.tag ?? null
+  const keywords = query.keywords ?? null
   const page = query.page ? Number.parseInt(query.page) : 1
 
-  const { contents, meta } = await fetchContents(page, tag)
+  const { contents, meta } = await fetchContents(page, { tagId, keywords })
 
   return {
     props: {
@@ -26,6 +28,8 @@ export async function getServerSideProps({ query }) {
   };
 }
 
+const DynamicSearchField = dynamic(() => import('../../components/SearchField'), { ssr: false })
+
 export default function Contents({ tags, contents, meta }) {
   const router = useRouter();
 
@@ -33,9 +37,7 @@ export default function Contents({ tags, contents, meta }) {
 
   const jumpToPage = (page) => {
     const params = new URLSearchParams(window.location.search)
-
     params.set('page', page)
-
     window.location.href = `/contents?${params.toString()}`
   }
 
@@ -67,7 +69,7 @@ export default function Contents({ tags, contents, meta }) {
       <div className="mb-6 w-full">
         <div className="font-medium mb-2">Pencarian</div>
         <div className="w-full mb-4">
-          <SearchField />
+          <DynamicSearchField />
         </div>
         <div className="font-medium">Kategori artikel</div>
         <div className="flex items-center mt-2 space-x-2 w-full overflow-x-auto">
@@ -80,7 +82,7 @@ export default function Contents({ tags, contents, meta }) {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 mb-8 w-full">
         {contents.map((content) => (
           <ContentCard key={content.id} content={content} />
         ))}

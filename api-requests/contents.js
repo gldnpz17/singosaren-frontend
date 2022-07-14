@@ -4,7 +4,14 @@ import { gqlClient } from "../common/gqlClient"
 import { mapContentSimple } from "../common/mapper/contents"
 import { mapTagsSimple } from "../common/mapper/tags"
 
-async function fetchContents(page=1, tagId=null) {
+const defaultOptions = {
+  tagId: null,
+  keywords: null
+}
+
+async function fetchContents(page=1, options) {
+  const { tagId, keywords } = { ...defaultOptions, ...options }
+
   let pageSize = 12
   try {
     pageSize = Number.parseInt(process.env.NEXT_PUBLIC_PAGINATION_PAGE_SIZE)
@@ -14,11 +21,15 @@ async function fetchContents(page=1, tagId=null) {
   const filters = []
   if (tagId) {
     filterParams.push('$tagId: ID')
-    filters.push('tags: { id: { eq: $tagId } }')
+    filters.push('{ tags: { id: { eq: $tagId } } }')
+  }
+  if (keywords) {
+    filterParams.push('$keywords: String')
+    filters.push('{ or: [{ title: { containsi: $keywords } }, { body: { containsi: $keywords } }] }')
   }
 
   const filterParamsString = filterParams.length > 0 ? `, ${filterParams.join(', ')}` : ''
-  const filtersString = filters.length > 0 ? `, filters: { ${filters.join(', ')} }` : ''
+  const filtersString = filters.length > 0 ? `, filters: { and: [ ${filters.join(', ')} ] }` : ''
 
   const query = gql`
     query FetchContents($page: Int, $pageSize: Int${filterParamsString}) {
@@ -56,7 +67,7 @@ async function fetchContents(page=1, tagId=null) {
     }
   `
 
-  const { data } = await gqlClient.query({ query, variables: { page, pageSize, tagId } })
+  const { data } = await gqlClient.query({ query, variables: { page, pageSize, tagId, keywords } })
 
   return ({
     meta: data.contents.meta,
