@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Inter'],
+        'sans': ['Lato'],
         'sans-serif': ['Space Grotesk']
       }
     },

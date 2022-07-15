@@ -22,3 +22,27 @@
 .leaflet-popup-close-button {
   display: none;
 }
+
+.swiper-pagination-bullet-active-main {
+  background-color: white;
+}
+
+.swiper-pagination-bullet {
+  transition-duration: 500ms !important;
+}
+
+.carousel-container .swiper-pagination-bullet {
+  filter: opacity(0%);
+}
+
+.carousel-container:hover .swiper-pagination-bullet {
+  filter: opacity(100%);
+}
+
+.carousel-container .carousel-nav {
+  filter: opacity(0%);
+}
+
+.carousel-container:hover .carousel-nav {
+  filter: opacity(100%);
+}

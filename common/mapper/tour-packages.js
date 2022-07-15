@@ -6,7 +6,7 @@ function mapTourPackagesSimple(tourPackage) {
   return ({
     id,
     name: attributes.name,
-    mainImageUrl: attributes.images.data[0].attributes.url,
+    imageUrls: attributes.images.data.map(image => image.attributes.url),
     price: attributes.price,
     shortDescription: attributes.shortDescription
   })

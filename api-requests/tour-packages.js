@@ -9,7 +9,7 @@ const fetchAllTourPackagesQuery = gql`
         id
         attributes {
           name
-          images(pagination: { start: 0, limit: 1 }) {
+          images {
             data {
               attributes {
                 url
