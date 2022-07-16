@@ -28,7 +28,7 @@ export default function ContentCard({ content: { id, coverImageUrl, title, autho
         </div>
         <div className='font-bold text-xl font-sans-serif'>{title}</div>
         <div className='flex-grow' />
-        <div className='flex'>
+        <div className='flex text-sm'>
           <span className='flex-grow text-gray-600'>by <span className='font-semibold inline'>{author}</span></span>
           <div className='text-gray-600'>{publicationTime}</div>
         </div>
