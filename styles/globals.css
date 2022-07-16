@@ -46,3 +46,7 @@
 .carousel-container:hover .carousel-nav {
   filter: opacity(100%);
 }
+
+.swiper-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet, .swiper-pagination-horizontal.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  transition: all 500ms !important;
+}

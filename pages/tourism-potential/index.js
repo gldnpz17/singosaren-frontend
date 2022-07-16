@@ -26,8 +26,8 @@ function TourismPotential({
   tourismPotentials
 }) {
   return (
-    <div className="flex flex-col justify-center items-center w-full max-w-3xl">
-      <h1 className="mb-4">Peta Potensi Pariwisata Singosaren</h1>
+    <div className="flex flex-col justify-center items-center w-full max-w-3xl scroll-smooth">
+      <h1 className="font-bold text-2xl mb-8 w-full">Peta Potensi Pariwisata Singosaren</h1>
       <div className="max-w-4xl w-full mb-8">
         <DynamicTourismPotentialMap
           baseMap={{
@@ -39,28 +39,26 @@ function TourismPotential({
         />
       </div>
       {tourismPotentials.map(tourismPotential => (
-        <section 
+        <section
           id={slugify(`${tourismPotential.name} ${tourismPotential.id}`)}
           key={tourismPotential.id}
-          className="mb-4 min-w-full w-0"
+          className="mb-4 min-w-full w-0 p-6 border border-gray-200"
         >
           <h2 className="text-lg font-semibold mb-2">{tourismPotential.name}</h2>
-          <div className="prose prose-slate mb-2">
+          <div className="prose prose-slate mb-6">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {tourismPotential.description}
             </ReactMarkdown>
           </div>
-          <div className="overflow-x-scroll">
-            <div className="flex min-w-max min-h-max">
-              {
-                tourismPotential.contents.map(content => (
-                  <div key={content.id} className="w-64 mr-2">
-                    <ContentCard content={content} />
-                  </div>
-                ))
-              }
+          <div className="relative w-full flex overflow-x-auto snap-x snap-mandatory">
+            {
+              tourismPotential.contents.map(content => (
+                <div key={content.id} className=" w-72 mr-6 shrink-0 snap-center">
+                  <ContentCard content={content} />
+                </div>
+              ))
+            }
             </div>
-          </div>
         </section>
       ))}
     </div>

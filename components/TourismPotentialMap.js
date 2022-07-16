@@ -4,6 +4,12 @@ import { MapContainer, Marker, Popup, useMapEvent, ImageOverlay, useMap, Tooltip
 import slugify from "../common/slugify"
 
 function MapMarker({ markerIcon, marker: { id, name, x, y, coverImageUrl, facilities } }) {
+  function scrollToTarget() {
+    const targetEl = document.getElementById(`${slugify(`${name} ${id}`)}`)
+
+    document.documentElement.scrollTo({ top: targetEl.offsetTop - 16, behavior: 'smooth' })
+  }
+
   return (
     <>
       <Marker
@@ -31,7 +37,7 @@ function MapMarker({ markerIcon, marker: { id, name, x, y, coverImageUrl, facili
                   </button>
                 ))}
               </div>
-              <a href={`/tourism-potential#${slugify(`${name} ${id}`)}`} className='self-end'>Lebih lanjut</a>
+              <button onClick={scrollToTarget} className='self-end border border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white duration-150 rounded p-1'>Lebih lanjut</button>
             </div>
           </div>
         </Popup>

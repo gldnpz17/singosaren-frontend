@@ -83,7 +83,7 @@ export async function getStaticProps() {
 function TourPackages({ tourPackages }) {
   return (
     <div className='w-full'>
-      <h1 className='font-bold text-3xl mb-8 text-center'>Paket Wisata Singosaren - Jagalan</h1>
+      <h1 className='font-bold text-2xl mb-8 text-center'>Paket Wisata Singosaren - Jagalan</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-12 mb-8 w-full">
         {tourPackages.map(tourPackage => (
           <TourPackageCard

@@ -19,7 +19,7 @@ export default function ContentCard({ content: { id, coverImageUrl, title, autho
   return (
     <div
       onClick={handleClick}
-      className='shadow-md rounded hover:shadow-2xl duration-300 bg-indigo-50 overflow-hidden cursor-pointer flex flex-col'
+      className='shadow-md rounded hover:shadow-2xl duration-300 h-full bg-indigo-50 overflow-hidden cursor-pointer flex flex-col'
     >
       <img src={coverImageUrl} className='h-44 object-cover' />
       <div className='px-4 pt-2 pb-4 flex flex-col flex-grow'>
