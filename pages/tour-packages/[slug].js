@@ -5,6 +5,8 @@ import remarkGfm from "remark-gfm"
 import ReactMarkdown from 'react-markdown'
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination } from "swiper"
+import Layout from "../../layouts/Layout"
+import withLayout from "../../higher-order-components/withLayout"
 
 export async function getStaticPaths() {
   const tourPackageIdentifiers = await fetchAllTourPackageIdentifiers()
@@ -40,13 +42,13 @@ function CarouselNavButton({ classKey, side, children }) {
   )
 }
 
-export default function TourPackageDetails({
+function TourPackageDetails({
   tourPackage: { name, images, price, contacts, details }
 }) {
   const classKey = 'tour-package-details'
 
   return (
-    <div className='grid grid-cols-12 m-8 gap-6 mx-60'>
+    <div className='grid grid-cols-12 gap-6 w-full'>
       <div className='col-span-8'>
         <h1 className='text-3xl h-12 font-bold mb-8'>{name}</h1>
         <div className='w-full h-96 mb-8 relative'>
@@ -102,3 +104,5 @@ export default function TourPackageDetails({
     </div>
   )
 }
+
+export default withLayout(TourPackageDetails, Layout)

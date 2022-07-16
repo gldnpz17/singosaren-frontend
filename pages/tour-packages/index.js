@@ -4,6 +4,8 @@ import slugify from "../../common/slugify"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Pagination, Navigation } from "swiper"
 import { useEffect, useMemo } from "react"
+import Layout from "../../layouts/Layout"
+import withLayout from "../../higher-order-components/withLayout"
 
 function CarouselNavButton({ classKey, side, children }) {
   return (
@@ -78,9 +80,9 @@ export async function getStaticProps() {
   })
 }
 
-export default function TourPackages({ tourPackages }) {
+function TourPackages({ tourPackages }) {
   return (
-    <div className='mt-16 mx-4 xl:mx-56 md:mx-12 lg:mx-32'>
+    <div className='w-full'>
       <h1 className='font-bold text-3xl mb-8 text-center'>Paket Wisata Singosaren - Jagalan</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-12 mb-8 w-full">
         {tourPackages.map(tourPackage => (
@@ -93,3 +95,5 @@ export default function TourPackages({ tourPackages }) {
     </div>
   )
 }
+
+export default withLayout(TourPackages, Layout)

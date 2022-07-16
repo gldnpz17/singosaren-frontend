@@ -11,6 +11,8 @@ import {
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import dynamic from "next/dynamic";
+import withLayout from "../../higher-order-components/withLayout"
+import Layout from "../../layouts/Layout"
 
 export async function getServerSideProps({ query }) {
   const tagId = query.tag ?? null
@@ -30,7 +32,7 @@ export async function getServerSideProps({ query }) {
 
 const DynamicSearchField = dynamic(() => import('../../components/SearchField'), { ssr: false })
 
-export default function Contents({ tags, contents, meta }) {
+function Contents({ tags, contents, meta }) {
   const router = useRouter();
 
   const { page, pageCount } = meta.pagination
@@ -65,7 +67,7 @@ export default function Contents({ tags, contents, meta }) {
   }, [page, pageCount])
 
   return (
-    <div className="mt-8 mx-4 xl:mx-56 md:mx-12 lg:mx-32 flex flex-col items-center">
+    <div className="w-full flex flex-col items-center">
       <div className="mb-6 w-full">
         <div className="font-medium mb-2">Pencarian</div>
         <div className="w-full mb-4">
@@ -82,7 +84,7 @@ export default function Contents({ tags, contents, meta }) {
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 mb-8 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-16 mb-8 w-full">
         {contents.map((content) => (
           <ContentCard key={content.id} content={content} />
         ))}
@@ -112,3 +114,5 @@ export default function Contents({ tags, contents, meta }) {
     </div>
   );
 }
+
+export default withLayout(Contents, Layout)

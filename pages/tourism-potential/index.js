@@ -5,6 +5,8 @@ import slugify from "../../common/slugify";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"
 import ContentCard from "../../components/ContentCard";
+import Layout from "../../layouts/Layout";
+import withLayout from "../../higher-order-components/withLayout";
 
 const DynamicTourismPotentialMap = dynamic(() => import('../../components/TourismPotentialMap'), { ssr: false })
 
@@ -18,13 +20,13 @@ export async function getStaticProps() {
   })
 }
 
-export default function TourismPotential({ 
+function TourismPotential({ 
   mapData: { baseMap, markerIcon }, 
   markers,
   tourismPotentials
 }) {
   return (
-    <div className="flex flex-col justify-center items-center mx-80">
+    <div className="flex flex-col justify-center items-center w-full max-w-3xl">
       <h1 className="mb-4">Peta Potensi Pariwisata Singosaren</h1>
       <div className="max-w-4xl w-full mb-8">
         <DynamicTourismPotentialMap
@@ -64,3 +66,5 @@ export default function TourismPotential({
     </div>
   )
 }
+
+export default withLayout(TourismPotential, Layout)

@@ -5,6 +5,8 @@ import { DateTime } from 'luxon'
 import ReactMarkdown from 'react-markdown'
 import { fetchContentById, fetchContentIdentifiers } from "../../api-requests/contents"
 import remarkGfm from "remark-gfm"
+import withLayout from "../../higher-order-components/withLayout"
+import Layout from "../../layouts/Layout"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -41,7 +43,7 @@ function TagButton({ tag: { id, name } }) {
   )
 }
 
-export default function ContentDetails({ 
+function ContentDetails({ 
   content: {
     coverImageUrl,
     tags,
@@ -52,7 +54,7 @@ export default function ContentDetails({
   }
 }) {
   return (
-    <div className='mx-8 sm:mx-12 md:mx-28 lg:mx-56 xl:mx-80 my-8 md:my-12 xl:my-28'>
+    <div className='w-full max-w-2xl'>
       <img className='mb-4 rounded' src={coverImageUrl} />
       <div className='mb-4'>
         <div className='mt-1 mb-2 flex space-x-2 items-center'>
@@ -86,3 +88,5 @@ export default function ContentDetails({
     </div>
   )
 }
+
+export default withLayout(ContentDetails, Layout)
