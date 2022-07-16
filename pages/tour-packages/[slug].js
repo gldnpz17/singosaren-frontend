@@ -41,7 +41,7 @@ function CarouselNavButton({ classKey, side, children }) {
 }
 
 export default function TourPackageDetails({
-  tourPackage: { id, name, images, price, shortDescription, details }
+  tourPackage: { name, images, price, contacts, details }
 }) {
   const classKey = 'tour-package-details'
 
@@ -88,14 +88,14 @@ export default function TourPackageDetails({
           <div className='font-semibold text-xl text-gray-500 mb-6'>{Format.currency(price)}</div>
           <div className='mb-1 text-sm'>Tertarik? Hubungi salah satu kontak berikut :</div>
           <ul className='flex flex-col gap-2'>
-            <li className='p-2 border border-gray-300 rounded flex items-center'>
-              <img src="/whatsapp.svg" className='h-6 mr-1' />
-              <span className='flex-grow'>(+62)0123456789</span> 
-            </li>
-            <li className='p-2 border border-gray-300 rounded flex items-center'>
-              <img src="/whatsapp.svg" className='h-6 mr-1' />
-              <span className='flex-grow'>(+62)0987654321</span> 
-            </li>
+            {contacts.map(contact => (
+              <li key={contact.id} className='p-2 border border-gray-300 rounded'>
+                <a href={contact.url} className='flex items-center'>
+                  <img src={contact.type.iconUrl} className='h-6 mr-1' />
+                  <span className='flex-grow'>{contact.name}</span> 
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </div>

@@ -48,7 +48,7 @@ export default function Contents({ tags, contents, meta }) {
     if (page !== 1) {
       buttons.push({ text: '<<', onClick: () => jumpToPage(1) })
       buttons.push({ text: '<', onClick: () => jumpToPage(page - 1) })
-      for (let i = page - 1; i >= page - PREVIOUS_NEXT_COUPLE_OF_PAGES && i >= 1; i--) {
+      for (let i = page - 1; i >= page - PREVIOUS_NEXT_COUPLE_OF_PAGES && i >= 1; i--) { 
         buttons.push({ text: i.toString(), onClick: () => jumpToPage(i) })
       }
     } 

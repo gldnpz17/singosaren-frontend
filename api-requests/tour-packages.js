@@ -17,7 +17,6 @@ const fetchAllTourPackagesQuery = gql`
             }
           }
           price
-          shortDescription
         }
       }
     }
@@ -63,7 +62,6 @@ const fetchTourPackageByIdQuery = gql`
         id
         attributes {
           name
-          shortDescription
           price
           images {
             data {
@@ -75,6 +73,29 @@ const fetchTourPackageByIdQuery = gql`
             }
           }
           details
+          contacts {
+            data {
+              id
+              attributes {
+                name
+                url
+                contactType {
+                  data {
+                    attributes {
+                      name
+                      icon {
+                        data {
+                          attributes {
+                            url
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
