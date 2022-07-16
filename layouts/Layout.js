@@ -2,7 +2,7 @@ import { ChevronUp, Facebook, Instagram, Location, Mail, Phone, Web, YouTube } f
 
 function NavBarButton({ children, href }) {
   return (
-    <a href={href} className='text-indigo-900'> 
+    <a href={href} className='hover:text-indigo-600 duration-150'> 
       {children}
     </a>
   )
@@ -51,7 +51,7 @@ export default function Layout({ children }) {
       <div className='h-12 bg-indigo-50 flex py-8 lg:py-10 px-4 xl:px-60 md:px-12 lg:px-32 items-center'>
         <div>Logo Dari Fathan</div>
         <div className='flex-grow'></div>
-        <div className='flex gap-4'>
+        <div className='flex gap-6'>
           <NavBarButton href='/contents'>Artikel</NavBarButton>
           <NavBarButton href='/tourism-potential'>Peta Potensi Wisata</NavBarButton>
           <NavBarButton href='/tour-packages'>Paket Wisata</NavBarButton>
