@@ -48,7 +48,7 @@ export default function Layout({ children }) {
       >
         <ChevronUp />
       </button>
-      <div className='h-12 bg-indigo-50 flex py-8 px-60 items-center'>
+      <div className='h-12 bg-indigo-50 flex py-8 lg:py-10 px-4 xl:px-60 md:px-12 lg:px-32 items-center'>
         <div>Logo Dari Fathan</div>
         <div className='flex-grow'></div>
         <div className='flex gap-4'>
