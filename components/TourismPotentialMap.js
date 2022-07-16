@@ -81,7 +81,7 @@ export default function TourismPotentialMap({
 
   return (
     <>
-      <MapContainer zoomSnap={0} id="tourism-potential-map" maxBounds={[[0, 0], [height, width]]} ref={mapRef} whenReady={updateMapWidth} style={{ height: 0 }} center={[width/2, height/2]} crs={CRS.Simple} zoom={13}>
+      <MapContainer zoomSnap={0} id="tourism-potential-map" className='rounded overflow-hidden' maxBounds={[[0, 0], [height, width]]} ref={mapRef} whenReady={updateMapWidth} style={{ height: 0 }} center={[width/2, height/2]} crs={CRS.Simple} zoom={13}>
         <ImageOverlay bounds={[[0, 0], [height, width]]} url={baseMapUrl} />
         {markers.map(marker => (
           <MapMarker
