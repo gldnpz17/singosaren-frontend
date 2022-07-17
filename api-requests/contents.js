@@ -12,10 +12,9 @@ const defaultOptions = {
 async function fetchContents(page=1, options) {
   const { tagId, keywords } = { ...defaultOptions, ...options }
 
-  let pageSize = 12
-  try {
-    pageSize = Number.parseInt(process.env.NEXT_PUBLIC_PAGINATION_PAGE_SIZE)
-  } catch { console.log('Page size not set. Using the default value (12).') }
+  const strPageSize = process.env.NEXT_PUBLIC_PAGINATION_PAGE_SIZE
+
+  let pageSize = strPageSize ? Number.parseInt(strPageSize) : 12
 
   const filterParams = []
   const filters = []
