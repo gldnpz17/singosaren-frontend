@@ -81,10 +81,10 @@ export default function Layout({ children }) {
           <hr className='mb-2' />
           <ul className='flex gap-1 flex-col'>
             <ItemWithIcon icon={Location}>
-              Sarirejo II RT.005 Singosaren Banguntapan Bantul &nbsp; 
-              Kapanewon Banguntapan Kabupaten Bantul &nbsp; 
-              DI Yogyakarta &nbsp; 
-              Kodepos 55193 &nbsp; 
+              Sarirejo II RT.005 Singosaren Banguntapan Bantul <br /> 
+              Kapanewon Banguntapan Kabupaten Bantul <br />
+              DI Yogyakarta <br />
+              Kodepos 55193 <br /> 
             </ItemWithIcon>
             <ItemWithIcon icon={Phone}>
               Telepon : (0274)4436567
