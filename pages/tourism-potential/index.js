@@ -57,7 +57,7 @@ function TourismPotential({
                 {tourismPotential.description}
               </ReactMarkdown>
             </div>
-            <div className="relative w-full flex overflow-x-auto snap-x snap-mandatory">
+            <div className="relative w-full flex overflow-x-auto snap-x snap-mandatory rounded">
               {
                 tourismPotential.contents.map(content => (
                   <div key={content.id} className=" w-72 mr-6 shrink-0 snap-center">

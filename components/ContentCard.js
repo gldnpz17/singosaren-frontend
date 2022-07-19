@@ -3,7 +3,7 @@ import slugify from "../common/slugify"
 function TagButton({ tag: { id, name } }) {
   return (
     <a
-      href={`/contents/tags/${slugify(name)}-${id}`}
+      href={`/contents?tag=${id}`}
       className='text-indigo-500 text-sm'
     >
       {name}
