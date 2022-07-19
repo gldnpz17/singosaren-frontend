@@ -66,7 +66,7 @@ async function fetchContents(page=1, options) {
     }
   `
 
-  const { data } = await gqlClient.query({ query, variables: { page, pageSize, tagId, keywords } })
+  const { data } = await gqlClient.query({ query, variables: { page, pageSize, tagId, keywords }, fetchPolicy: 'no-cache' })
 
   return ({
     meta: data.contents.meta,
@@ -105,7 +105,7 @@ const fetchContentByIdQuery = gql`
 `
 
 async function fetchContentById(id) {
-  const { data } = await gqlClient.query({ query: fetchContentByIdQuery, variables: { id } })
+  const { data } = await gqlClient.query({ query: fetchContentByIdQuery, variables: { id }, fetchPolicy: 'no-cache' })
 
   const { attributes } = data.content.data
 
@@ -134,7 +134,7 @@ const fetchContentIdentifiersQuery = gql`
 `
 
 async function fetchContentIdentifiers() {
-  const { data } = await gqlClient.query({ query: fetchContentIdentifiersQuery })
+  const { data } = await gqlClient.query({ query: fetchContentIdentifiersQuery, fetchPolicy: 'no-cache' })
 
   return data.contents.data
 }

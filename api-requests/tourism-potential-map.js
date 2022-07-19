@@ -32,7 +32,7 @@ const fetchTourismPotentialMapDataQuery = gql`
 `
 
 async function fetchTourismPotentialMapData() {
-  const { data } = await gqlClient.query({ query: fetchTourismPotentialMapDataQuery })
+  const { data } = await gqlClient.query({ query: fetchTourismPotentialMapDataQuery, fetchPolicy: 'no-cache' })
 
   const { attributes } = data.tourismPotentialMap.data
 
@@ -79,7 +79,7 @@ const fetchAllTourismPotentialMapMarkersQuery = gql`
 `
 
 async function fetchAllTourismPotentialMapMarkers() {
-  const { data } = await gqlClient.query({ query: fetchAllTourismPotentialMapMarkersQuery })
+  const { data } = await gqlClient.query({ query: fetchAllTourismPotentialMapMarkersQuery, fetchPolicy: 'no-cache' })
 
   const markers = data.tourismPotentialMarkers.data
 
@@ -144,7 +144,7 @@ const fetchAllTourismPotentialsQuery = gql`
 `
 
 async function fetchAllTourismPotentials() {
-  const { data } = await gqlClient.query({ query: fetchAllTourismPotentialsQuery })
+  const { data } = await gqlClient.query({ query: fetchAllTourismPotentialsQuery, fetchPolicy: 'no-cache' })
 
   const tourismPotentials = data.tourismPotentialMarkers.data
 

@@ -24,7 +24,7 @@ const fetchAllTourPackagesQuery = gql`
 `
 
 async function fetchAllTourPackages() {
-  const { data } = await gqlClient.query({ query: fetchAllTourPackagesQuery })
+  const { data } = await gqlClient.query({ query: fetchAllTourPackagesQuery, fetchPolicy: 'no-cache' })
 
   return data.tourPackages.data.map(mapTourPackagesSimple)
 }
@@ -43,7 +43,7 @@ const fetchAllTourPackageIdentifiersQuery = gql`
 `
 
 async function fetchAllTourPackageIdentifiers() {
-  const { data } = await gqlClient.query({ query: fetchAllTourPackageIdentifiersQuery })
+  const { data } = await gqlClient.query({ query: fetchAllTourPackageIdentifiersQuery, fetchPolicy: 'no-cache' })
 
   return data.tourPackages.data.map(tourPackage => {
     const { id, attributes } = tourPackage
@@ -103,7 +103,7 @@ const fetchTourPackageByIdQuery = gql`
 `
 
 async function fetchTourPackageById(id) {
-  const { data } = await gqlClient.query({ query: fetchTourPackageByIdQuery, variables: { id } })
+  const { data } = await gqlClient.query({ query: fetchTourPackageByIdQuery, variables: { id }, fetchPolicy: 'no-cache' })
 
   return mapTourPackageDetailed(data.tourPackage.data)
 }

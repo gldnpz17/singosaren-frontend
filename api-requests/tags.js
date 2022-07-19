@@ -17,7 +17,7 @@ const fetchAllTagsQuery = gql`
 `
 
 async function fetchAllTags() {
-  const { data } = await gqlClient.query({ query: fetchAllTagsQuery })
+  const { data } = await gqlClient.query({ query: fetchAllTagsQuery, fetchPolicy: 'no-cache' })
 
   return mapTagsSimple(data.tags.data)
 }
