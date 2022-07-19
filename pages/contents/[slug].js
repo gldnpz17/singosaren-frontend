@@ -8,6 +8,7 @@ import remarkGfm from "remark-gfm"
 import withLayout from "../../higher-order-components/withLayout"
 import Layout from "../../layouts/Layout"
 import configs from "../../common/configs"
+import Head from "next/head"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -56,38 +57,43 @@ function ContentDetails({
   }
 }) {
   return (
-    <div className='w-full max-w-2xl'>
-      <img className='mb-4 rounded' src={coverImageUrl} />
-      <div className='mb-4'>
-        <div className='mt-1 mb-2 flex space-x-2 items-center'>
-          {tags.map(tag => 
-            <TagButton
-              key={tag.id}
-              tag={tag}
-            />
-          )}
+    <>
+      <Head>
+        <title>{title} - bokongsemar.id</title>
+      </Head>
+      <div className='w-full max-w-2xl'>
+        <img className='mb-4 rounded' src={coverImageUrl} />
+        <div className='mb-4'>
+          <div className='mt-1 mb-2 flex space-x-2 items-center'>
+            {tags.map(tag => 
+              <TagButton
+                key={tag.id}
+                tag={tag}
+              />
+            )}
+          </div>
+          <div className='mb-2 font-sans-serif font-semibold'>{author}</div>
+          <h1 className='mb-2 text-2xl font-sans-serif font-semibold'>{title}</h1>
+          <div className='mb-2 text-gray-500 font-sans-serif'>{publicationTime}</div>
         </div>
-        <div className='mb-2 font-sans-serif font-semibold'>{author}</div>
-        <h1 className='mb-2 text-2xl font-sans-serif font-semibold'>{title}</h1>
-        <div className='mb-2 text-gray-500 font-sans-serif'>{publicationTime}</div>
+        <hr className='mb-4' />
+        <div className='prose prose-slate'>
+          <ReactMarkdown 
+            remarkPlugins={[remarkGfm]}
+            components={{
+              img: ({ node, ...props }) => (
+                <span>
+                  <img {...props} className={`${props.className ?? ''} rounded mb-0`} />
+                  <span className='text-gray-500'>{props.alt}</span>
+                </span>
+              )
+            }}
+          >
+            {body}
+          </ReactMarkdown>
+        </div>
       </div>
-      <hr className='mb-4' />
-      <div className='prose prose-slate'>
-        <ReactMarkdown 
-          remarkPlugins={[remarkGfm]}
-          components={{
-            img: ({ node, ...props }) => (
-              <span>
-                <img {...props} className={`${props.className ?? ''} rounded mb-0`} />
-                <span className='text-gray-500'>{props.alt}</span>
-              </span>
-            )
-          }}
-        >
-          {body}
-        </ReactMarkdown>
-      </div>
-    </div>
+    </>
   )
 }
 

@@ -7,6 +7,7 @@ import { useEffect, useMemo } from "react"
 import Layout from "../../layouts/Layout"
 import withLayout from "../../higher-order-components/withLayout"
 import configs from "../../common/configs"
+import Head from 'next/head'
 
 function CarouselNavButton({ classKey, side, children }) {
   return (
@@ -35,41 +36,46 @@ function TourPackageCard({
   const classKey = useMemo(() => `tour-package-${id}`, [id])
 
   return (
-    <div
-      onClick={handleClick} 
-      className="flex flex-col rounded-md duration-200 cursor-pointer relative"
-    >
-      <div className='carousel-container relative w-full aspect-square mb-4 rounded overflow-hidden'>
-        <Swiper
-          navigation={{
-            enabled: true,
-            nextEl: `#${classKey}-carousel-right`,
-            prevEl: `#${classKey}-carousel-left`
-          }}
-          pagination={{
-            dynamicBullets: true
-          }}
-          modules={[Pagination, Navigation]}
-          className='w-full h-full'
-        >
-          {imageUrls.map(url => (
-            <SwiperSlide key={url}>
-              <img src={url} className='h-full w-full object-cover' />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <CarouselNavButton classKey={classKey} side='left' >
-          <img src='/chevron-left.svg' />
-        </CarouselNavButton>
-        <CarouselNavButton classKey={classKey} side='right' >
-          <img src='/chevron-right.svg' />
-        </CarouselNavButton>
+    <>
+      <Head>
+        <title>Indeks Paket Wisata - bokongsemar.id</title>
+      </Head>
+      <div
+        onClick={handleClick} 
+        className="flex flex-col rounded-md duration-200 cursor-pointer relative"
+      >
+        <div className='carousel-container relative w-full aspect-square mb-4 rounded overflow-hidden'>
+          <Swiper
+            navigation={{
+              enabled: true,
+              nextEl: `#${classKey}-carousel-right`,
+              prevEl: `#${classKey}-carousel-left`
+            }}
+            pagination={{
+              dynamicBullets: true
+            }}
+            modules={[Pagination, Navigation]}
+            className='w-full h-full'
+          >
+            {imageUrls.map(url => (
+              <SwiperSlide key={url}>
+                <img src={url} className='h-full w-full object-cover' />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <CarouselNavButton classKey={classKey} side='left' >
+            <img src='/chevron-left.svg' />
+          </CarouselNavButton>
+          <CarouselNavButton classKey={classKey} side='right' >
+            <img src='/chevron-right.svg' />
+          </CarouselNavButton>
+        </div>
+        <div>
+          <div className='line-clamp-1 font-semibold text-lg font-sans-serif'>{name}</div>
+          <div className="text-gray-500 font-sans text-sm">{Format.currency(price)}</div>
+        </div>
       </div>
-      <div>
-        <div className='line-clamp-1 font-semibold text-lg font-sans-serif'>{name}</div>
-        <div className="text-gray-500 font-sans text-sm">{Format.currency(price)}</div>
-      </div>
-    </div>
+    </>
   )
 }
 

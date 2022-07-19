@@ -13,6 +13,7 @@ import { useMemo } from "react";
 import dynamic from "next/dynamic";
 import withLayout from "../../higher-order-components/withLayout"
 import Layout from "../../layouts/Layout"
+import Head from 'next/head'
 
 export async function getServerSideProps({ query }) {
   const tagId = query.tag ?? null
@@ -67,51 +68,56 @@ function Contents({ tags, contents, meta }) {
   }, [page, pageCount])
 
   return (
-    <div className="w-full flex flex-col items-center">
-      <div className="mb-6 w-full">
-        <div className="font-medium mb-2">Pencarian</div>
-        <div className="w-full mb-4">
-          <DynamicSearchField />
+    <>
+      <Head>
+        <title>Indeks Artikel - bokongsemar.id</title>
+      </Head>
+      <div className="w-full flex flex-col items-center">
+        <div className="mb-6 w-full">
+          <div className="font-medium mb-2">Pencarian</div>
+          <div className="w-full mb-4">
+            <DynamicSearchField />
+          </div>
+          <div className="font-medium">Kategori artikel</div>
+          <div className="flex items-center mt-2 space-x-2 w-full overflow-x-auto">
+            {tags.map((tag) => (
+              <TagButton
+                key={tag.id}
+                tag={tag}
+                active={router.query.tag === tag.id}
+              />
+            ))}
+          </div>
         </div>
-        <div className="font-medium">Kategori artikel</div>
-        <div className="flex items-center mt-2 space-x-2 w-full overflow-x-auto">
-          {tags.map((tag) => (
-            <TagButton
-              key={tag.id}
-              tag={tag}
-              active={router.query.tag === tag.id}
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-16 mb-8 w-full">
+          {contents.map((content) => (
+            <ContentCard key={content.id} content={content} />
           ))}
         </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-16 mb-8 w-full">
-        {contents.map((content) => (
-          <ContentCard key={content.id} content={content} />
-        ))}
-      </div>
-      <div>
-        <div>Menampilkan halaman {page} dari {pageCount}</div>
-        <div className='flex gap-2 justify-center'>
-          {paginationButtons.map(button => {
-            if (button.onClick) {
-              return (
-                <button 
-                  className='hover:underline'
-                  key={button.text}
-                  onClick={button.onClick}
-                >
-                  {button.text}
-                </button>
-              )
-            } else {
-              return (
-                <span className='font-bold' key={button.text}>{button.text}</span>
-              )
-            }
-          })}
+        <div>
+          <div>Menampilkan halaman {page} dari {pageCount}</div>
+          <div className='flex gap-2 justify-center'>
+            {paginationButtons.map(button => {
+              if (button.onClick) {
+                return (
+                  <button 
+                    className='hover:underline'
+                    key={button.text}
+                    onClick={button.onClick}
+                  >
+                    {button.text}
+                  </button>
+                )
+              } else {
+                return (
+                  <span className='font-bold' key={button.text}>{button.text}</span>
+                )
+              }
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
