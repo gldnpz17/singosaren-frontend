@@ -32,7 +32,6 @@ export async function getServerSideProps({ query }) {
 }
 
 const DynamicSearchField = dynamic(() => import('../../components/SearchField'), { ssr: false })
-const DynamicTagButton = dynamic(() => import('../../components/TagButton'), { ssr: false })
 
 function Contents({ tags, contents, meta }) {
   const router = useRouter();
