@@ -51,7 +51,7 @@ function Contents({ tags, contents, meta }) {
     if (page !== 1) {
       buttons.push({ text: '<<', onClick: () => jumpToPage(1) })
       buttons.push({ text: '<', onClick: () => jumpToPage(page - 1) })
-      for (let i = Math.max(0, page - PREVIOUS_NEXT_COUPLE_OF_PAGES); i < page; i++) { 
+      for (let i = Math.max(1, page - PREVIOUS_NEXT_COUPLE_OF_PAGES); i < page; i++) { 
         buttons.push({ text: i.toString(), onClick: () => jumpToPage(i) })
       }
     } 
