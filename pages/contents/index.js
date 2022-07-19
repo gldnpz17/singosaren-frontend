@@ -128,7 +128,7 @@ function Contents({ tags, contents, meta }) {
               <img 
                 src='/emptiness.png' 
                 alt='A person with a box and a potted plant.' 
-                className='h-60'
+                className='h-60 object-scale-down'
               />
             </>
           )

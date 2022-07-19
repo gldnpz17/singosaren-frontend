@@ -93,7 +93,7 @@ export default function Layout({ children }) {
               Email : desa.singosaren@bantulkab.go.id
             </ItemWithIcon>
             <ItemWithIcon icon={Web}>
-              https://singosaren.id
+              Website : <a href='https://singosaren.id' className='underline'>https://singosaren.id</a>
             </ItemWithIcon>
           </ul>
         </div>
