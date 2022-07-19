@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Pagination } from "swiper"
 import Layout from "../../layouts/Layout"
 import withLayout from "../../higher-order-components/withLayout"
+import configs from "../../common/configs"
 
 export async function getStaticPaths() {
   const tourPackageIdentifiers = await fetchAllTourPackageIdentifiers()
@@ -26,7 +27,8 @@ export async function getStaticProps({ params }) {
   return ({
     props: {
       tourPackage: await fetchTourPackageById(id)
-    }
+    },
+    revalidate: configs.isrDurationSeconds
   })
 }
 

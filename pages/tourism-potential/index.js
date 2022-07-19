@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm"
 import ContentCard from "../../components/ContentCard";
 import Layout from "../../layouts/Layout";
 import withLayout from "../../higher-order-components/withLayout";
+import configs from "../../common/configs";
 
 const DynamicTourismPotentialMap = dynamic(() => import('../../components/TourismPotentialMap'), { ssr: false })
 
@@ -16,7 +17,8 @@ export async function getStaticProps() {
       mapData: await fetchTourismPotentialMapData(),
       markers: await fetchAllTourismPotentialMapMarkers(),
       tourismPotentials: await fetchAllTourismPotentials()
-    }
+    },
+    revalidate: configs.isrDurationSeconds
   })
 }
 

@@ -7,6 +7,7 @@ import { fetchContentById, fetchContentIdentifiers } from "../../api-requests/co
 import remarkGfm from "remark-gfm"
 import withLayout from "../../higher-order-components/withLayout"
 import Layout from "../../layouts/Layout"
+import configs from "../../common/configs"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -28,7 +29,8 @@ export async function getStaticProps({ params }) {
   return ({
     props: {
       content: await fetchContentById(id)
-    }
+    },
+    revalidate: configs.isrDurationSeconds
   })
 }
 

@@ -6,6 +6,7 @@ import { Pagination, Navigation } from "swiper"
 import { useEffect, useMemo } from "react"
 import Layout from "../../layouts/Layout"
 import withLayout from "../../higher-order-components/withLayout"
+import configs from "../../common/configs"
 
 function CarouselNavButton({ classKey, side, children }) {
   return (
@@ -76,7 +77,8 @@ export async function getStaticProps() {
   return ({
     props: {
       tourPackages: await fetchAllTourPackages()
-    }
+    },
+    revalidate: configs.isrDurationSeconds
   })
 }
 
