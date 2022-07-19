@@ -89,33 +89,50 @@ function Contents({ tags, contents, meta }) {
             ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-16 mb-8 w-full">
-          {contents.map((content) => (
-            <ContentCard key={content.id} content={content} />
-          ))}
-        </div>
-        <div>
-          <div>Menampilkan halaman {page} dari {pageCount}</div>
-          <div className='flex gap-2 justify-center'>
-            {paginationButtons.map(button => {
-              if (button.onClick) {
-                return (
-                  <button 
-                    className='hover:underline'
-                    key={button.text}
-                    onClick={button.onClick}
-                  >
-                    {button.text}
-                  </button>
-                )
-              } else {
-                return (
-                  <span className='font-bold' key={button.text}>{button.text}</span>
-                )
-              }
-            })}
-          </div>
-        </div>
+        {contents.length > 0
+          ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-12 lg:grid-cols-3 xl:gap-x-20 gap-y-4 md:gap-y-16 mb-8 w-full">
+                {contents.map((content) => (
+                  <ContentCard key={content.id} content={content} />
+                ))}
+              </div>
+              <div>
+                <div>Menampilkan halaman {page} dari {pageCount}</div>
+                <div className='flex gap-2 justify-center'>
+                  {paginationButtons.map(button => {
+                    if (button.onClick) {
+                      return (
+                        <button 
+                          className='hover:underline'
+                          key={button.text}
+                          onClick={button.onClick}
+                        >
+                          {button.text}
+                        </button>
+                      )
+                    } else {
+                      return (
+                        <span className='font-bold' key={button.text}>{button.text}</span>
+                      )
+                    }
+                  })}
+                </div>
+              </div>
+            </>
+          )
+          : (
+            <>
+              <div className='text-gray-400 text-3xl'>Ups, sepertinya tidak ada apa-apa di sini</div>
+              <div className='text-gray-400 text-lg mb-8'>Mungkin coba gunakan kombinasi pencarian lain?</div>
+              <img 
+                src='/emptiness.png' 
+                alt='A person with a box and a potted plant.' 
+                className='h-60'
+              />
+            </>
+          )
+        }
       </div>
     </>
   );
