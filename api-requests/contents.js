@@ -3,6 +3,7 @@ import { DateTime } from "luxon"
 import { gqlClient } from "../common/gqlClient"
 import { mapContentSimple } from "../common/mapper/contents"
 import { mapTagsSimple } from "../common/mapper/tags"
+import { SeedableRandom } from '../common/SeedableRandom'
 
 const defaultOptions = {
   tagId: null,
@@ -139,4 +140,85 @@ async function fetchContentIdentifiers() {
   return data.contents.data
 }
 
-export { fetchContents, fetchContentIdentifiers, fetchContentById }
+const fetchContentCountQuery = gql`
+  query FetchContentCount {
+    contents {
+      meta {
+        pagination {
+          total
+        }
+      }	
+    }
+  }
+`
+
+async function fetchContentCount() {
+  const { data } = await gqlClient.query({ query: fetchContentCountQuery, fetchPolicy: 'no-cache' })
+
+  return data.contents.meta.pagination.total
+}
+
+async function fetchSimpleContentById(id) {
+  const query = gql`
+    query FetchSimpleContentById($id: ID) {
+      content(id: $id) {
+        data {
+          id
+          attributes {
+            title
+            author
+            publishedAt
+            coverImage {
+              data {
+                attributes {
+                  url
+                }
+              }
+            }
+            tags {
+              data {
+                id
+                attributes {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const { data } = await gqlClient.query({ query: query, fetchPolicy: 'no-cache', variables: { id } })
+
+  return mapContentSimple(data.content.data)
+}
+
+async function fetchRandomContents(amount, seed) {
+  
+  const totalArticles = await fetchContentCount()
+  const contents = []
+  const random = new SeedableRandom({ min: 0, max: totalArticles, seed })
+
+  while (contents.length < amount) {
+    try {
+      const id = random.getRandomInt()
+      console.log("id", id)
+      const content = await fetchSimpleContentById(id)
+      
+      if (content) contents.push(content)
+    } catch(e) {
+      console.log(`Error attempting to fetch article with the ID of ${id} to use for random articles.`)
+    }
+  }
+
+  return contents
+}
+
+export { 
+  fetchContents, 
+  fetchContentIdentifiers, 
+  fetchContentById, 
+  fetchContentCount, 
+  fetchRandomContents 
+}

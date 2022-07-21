@@ -3,13 +3,14 @@ import { gql } from '@apollo/client'
 import slugify from "../../common/slugify"
 import { DateTime } from 'luxon'
 import ReactMarkdown from 'react-markdown'
-import { fetchContentById, fetchContentIdentifiers } from "../../api-requests/contents"
+import { fetchContentById, fetchContentIdentifiers, fetchRandomContents } from "../../api-requests/contents"
 import remarkGfm from "remark-gfm"
 import withLayout from "../../higher-order-components/withLayout"
 import Layout from "../../layouts/Layout"
 import configs from "../../common/configs"
 import Head from "next/head"
 import { Facebook, Twitter, Whatsapp } from "../../common/icons"
+import HorizontalContentCard from "../../components/HorizontalContentCard"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -31,6 +32,7 @@ export async function getStaticProps({ params }) {
   return ({
     props: {
       content: await fetchContentById(id),
+      otherContents: await fetchRandomContents(3, parseInt(id)),
       slug: params.slug
     },
     revalidate: configs.isrDurationSeconds
@@ -107,6 +109,7 @@ function ContentDetails({
     publicationTime,
     body
   },
+  otherContents,
   slug
 }) {
   const PAGE_TITLE = `${title} - bokongsemar.id`
@@ -164,7 +167,9 @@ function ContentDetails({
         <div>
           <div className='font-semibold mb-3'>Artikel lainnya</div>
           <div className='flex flex-col gap-4'>
-            
+            {otherContents.map(content => (
+              <HorizontalContentCard key={content.id} content={content} />
+            ))}
           </div>
         </div>
       </div>
