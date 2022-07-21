@@ -10,6 +10,7 @@ import Layout from "../../layouts/Layout"
 import configs from "../../common/configs"
 import Head from "next/head"
 import { Facebook, Twitter, Whatsapp } from "../../common/icons"
+import HorizontalContentCard from "../../components/HorizontalContentCard"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -148,7 +149,7 @@ function ContentDetails({
               img: ({ node, ...props }) => (
                 <span>
                   <img {...props} className={`${props.className ?? ''} rounded mb-0`} />
-                  <span className='text-gray-500'>{props.alt}</span>
+                  <span className='text-gray-500 block'>{props.alt}</span>
                 </span>
               )
             }}
@@ -157,9 +158,15 @@ function ContentDetails({
           </ReactMarkdown>
         </div>
         <hr className='mb-6' />
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center mb-8'>
           <div className='font-semibold mb-2'>Sebarkan artikel ini</div>
           <SocialMediaArray title={title} pageUrl={PAGE_URL} />
+        </div>
+        <div>
+          <div className='font-semibold mb-3'>Artikel lainnya</div>
+          <div className='flex flex-col gap-4'>
+            
+          </div>
         </div>
       </div>
     </>
