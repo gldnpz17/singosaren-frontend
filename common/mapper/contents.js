@@ -10,7 +10,9 @@ function mapContentSimple(content) {
     shortDescription: attributes.shortDescription,
     title: attributes.title,
     author: attributes.author,
-    publicationTime: DateTime.fromISO(attributes.publishedAt).toLocaleString(DateTime.DATE_MED),
+    publicationTime: DateTime.fromISO(attributes.publishedAt).isValid 
+      ? DateTime.fromISO(attributes.publishedAt).toLocaleString(DateTime.DATE_MED)
+      : null,
     tags: mapTagsSimple(attributes.tags.data)
   })
 }

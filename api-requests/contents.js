@@ -3,7 +3,7 @@ import { DateTime } from "luxon"
 import { gqlClient } from "../common/gqlClient"
 import { mapContentSimple } from "../common/mapper/contents"
 import { mapTagsSimple } from "../common/mapper/tags"
-import { SeedableRandom } from '../common/SeedableRandom'
+import seedrandom from 'seedrandom'
 
 const defaultOptions = {
   tagId: null,
@@ -199,21 +199,30 @@ async function fetchSimpleContentById(id) {
   return mapContentSimple(data.content.data)
 }
 
-async function fetchRandomContents(amount, seed) {
-  
+async function fetchRandomContents(amount, seedId) {
   const totalArticles = await fetchContentCount()
+  const MAX_TRIES = 32
   const contents = []
-  const random = new SeedableRandom({ min: 0, max: totalArticles, seed })
+  const random = seedrandom(seedId)
 
-  while (contents.length < amount) {
+  let tries = 0
+  let id = null
+  while (contents.length < amount && tries < MAX_TRIES) {
+    tries++
     try {
-      const id = random.getRandomInt()
-      console.log("id", id)
+      id = 1 + Math.floor(random() * totalArticles)
+      console.log(`[Other Articles] Trying to fetch content with an ID of ${id}.`)
+
+      if (id === seedId) throw new Error("This is the article that's being fucking read.")
+
       const content = await fetchSimpleContentById(id)
-      
+
+      if (contents.find(c => c.id === content.id)) throw new Error('Duplicate article.')
+      if (!content.publicationTime) throw new Error('Unpublished article.') 
+
       if (content) contents.push(content)
     } catch(e) {
-      console.log(`Error attempting to fetch article with the ID of ${id} to use for random articles.`)
+      console.log(`[Other Articles] Error attempting to fetch article with the ID of ${id}. Error: ${e.message}`)
     }
   }
 
