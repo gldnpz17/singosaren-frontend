@@ -80,6 +80,7 @@ const fetchContentByIdQuery = gql`
   query FetchContentById($id: ID) {
     content(id: $id) {
       data {
+        id
         attributes {
           title
           author
