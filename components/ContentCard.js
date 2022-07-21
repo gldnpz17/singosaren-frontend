@@ -1,7 +1,7 @@
 import slugify from "../common/slugify"
 import ContentCardTag from "./ContentCardTag"
 
-export default function ContentCard({ content: { id, coverImageUrl, title, author, publicationTime, tags } }) {
+export default function ContentCard({ content: { id, shortDescription, coverImageUrl, title, author, publicationTime, tags } }) {
   const handleClick = (e) => {
     window.location.href = `/contents/${slugify(title)}-${id}`
   }
@@ -17,7 +17,7 @@ export default function ContentCard({ content: { id, coverImageUrl, title, autho
           {tags.map(tag => <ContentCardTag key={tag.id} tag={tag} />)}
         </div>
         <div className='font-bold text-xl font-sans-serif'>{title}</div>
-        <div className='flex-grow' />
+        <div className='flex-grow line-clamp-5'>{shortDescription}</div>
         <div className='flex text-sm'>
           <span className='flex-grow text-gray-600'>by <span className='font-semibold inline'>{author}</span></span>
           <div className='text-gray-600'>{publicationTime}</div>

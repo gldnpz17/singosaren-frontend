@@ -45,6 +45,7 @@ async function fetchContents(page=1, options) {
           attributes {
             title
             author
+            shortDescription
             publishedAt
             coverImage {
               data {
@@ -82,6 +83,7 @@ const fetchContentByIdQuery = gql`
         attributes {
           title
           author
+          shortDescription
           publishedAt
           coverImage {
             data {
@@ -113,6 +115,7 @@ async function fetchContentById(id) {
   return ({
     id,
     coverImageUrl: attributes.coverImage.data.attributes.url,
+    shortDescription: attributes.shortDescription,
     title: attributes.title,
     author: attributes.author,
     publicationTime: DateTime.fromISO(attributes.publishedAt).toLocaleString(DateTime.DATE_MED),
@@ -167,6 +170,7 @@ async function fetchSimpleContentById(id) {
           attributes {
             title
             author
+            shortDescription
             publishedAt
             coverImage {
               data {

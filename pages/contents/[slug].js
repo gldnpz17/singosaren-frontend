@@ -103,6 +103,7 @@ function SocialMediaArray({ title, pageUrl }) {
 function ContentDetails({ 
   content: {
     coverImageUrl,
+    shortDescription,
     tags,
     author,
     title,
@@ -122,7 +123,7 @@ function ContentDetails({
         <meta property="og:url"           content={PAGE_URL} />
         <meta property="og:type"          content="website" />
         <meta property="og:title"         content={PAGE_TITLE} />
-        <meta property="og:description"   content="TODO: Fill with something." />
+        <meta property="og:description"   content={shortDescription} />
         <meta property="og:image"         content={coverImageUrl} />
       </Head>
       <div className='w-full max-w-2xl'>
@@ -138,6 +139,7 @@ function ContentDetails({
           </div>
           <div className='mb-2 font-sans-serif font-semibold'>{author}</div>
           <h1 className='mb-2 text-2xl font-sans-serif font-semibold'>{title}</h1>
+          <div className='text-gray-500 mb-4'>{shortDescription}</div>
           <div className='flex mb-2 items-center'>
             <div className='text-gray-500 font-sans-serif flex-grow'>{publicationTime}</div>
             <SocialMediaArray title={title} pageUrl={PAGE_URL} />
@@ -166,7 +168,7 @@ function ContentDetails({
         </div>
         <div>
           <div className='font-semibold mb-3'>Artikel lainnya</div>
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-6'>
             {otherContents.map(content => (
               <HorizontalContentCard key={content.id} content={content} />
             ))}

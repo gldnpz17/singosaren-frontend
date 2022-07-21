@@ -7,6 +7,7 @@ function mapContentSimple(content) {
   return ({
     id,
     coverImageUrl: attributes.coverImage.data.attributes.url,
+    shortDescription: attributes.shortDescription,
     title: attributes.title,
     author: attributes.author,
     publicationTime: DateTime.fromISO(attributes.publishedAt).toLocaleString(DateTime.DATE_MED),
