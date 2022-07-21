@@ -84,7 +84,7 @@ function TourPackageDetails({
               <img src='/chevron-right.svg' />
             </CarouselNavButton>
           </div>
-          <div className='p-4 pt-6 border border-gray-500'>
+          <div className='p-4 pt-6 border border-gray-200'>
             <h2 className='text-2xl font-semibold mb-4'>Tentang</h2>
             <div className='prose prose-slate'>
               <ReactMarkdown remarkPlugins={[remarkGfm]}>{details}</ReactMarkdown>
