@@ -10,7 +10,6 @@ import Layout from "../../layouts/Layout"
 import configs from "../../common/configs"
 import Head from "next/head"
 import { Facebook, Twitter, Whatsapp } from "../../common/icons"
-import HorizontalContentCard from "../../components/HorizontalContentCard"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
