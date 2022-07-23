@@ -1,8 +1,18 @@
-import { ChevronUp, Facebook, Instagram, Location, Mail, Phone, Web, YouTube } from "../common/icons"
+import { useMemo } from "react"
+import { useState } from "react"
+import { ChevronUp, Close, Facebook, Instagram, Location, Mail, Menu, Phone, Web, YouTube } from "../common/icons"
 
 function NavBarButton({ children, href }) {
   return (
     <a href={href} className='hover:text-indigo-600 duration-150'> 
+      {children}
+    </a>
+  )
+}
+
+function NavBarMenu({ children, href }) {
+  return (
+    <a href={href} className='h-12 flex items-center px-4 border-b hover:text-indigo-500 cursor-pointer duration-150 border-gray-300 min-h-0 overflow-hidden'>
       {children}
     </a>
   )
@@ -36,6 +46,8 @@ function SocialButton({ logo, href }) {
 }
 
 export default function Layout({ children }) {
+  const [isNavOpen, setIsNavOpen] = useState(false)
+
   function scrollToTop() {
     document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -49,14 +61,28 @@ export default function Layout({ children }) {
       >
         <ChevronUp />
       </button>
-      <div className='h-12 bg-indigo-50 flex py-8 lg:py-10 px-4 xl:px-60 md:px-12 lg:px-32 items-center'>
+      <div className='h-16 bg-indigo-50 flex py-4 px-4 xl:px-60 md:px-12 lg:px-32 items-center'>
         <div>[Logo Here]</div>
         <div className='flex-grow'></div>
-        <div className='flex gap-6'>
+        <div className='md:flex gap-6 hidden'>
           <NavBarButton href='/contents'>Artikel</NavBarButton>
           <NavBarButton href='/tourism-potential'>Peta Potensi Wisata</NavBarButton>
           <NavBarButton href='/tour-packages'>Paket Wisata</NavBarButton>
         </div>
+        <button 
+          className='h-8 w-8 hover:text-indigo-600 duration-150'
+          onClick={() => setIsNavOpen(!isNavOpen)}
+        >
+          {isNavOpen ? <Close /> : <Menu />}
+        </button>
+      </div>
+      <div 
+        className={`${isNavOpen ? 'h-36' : 'h-0'} flex flex-col absolute top-16 bg-white left-0 right-0 overflow-hidden transition-all ease-in-out duration-300`}
+        style={{ zIndex: 2000 }}
+      >
+        <NavBarMenu href='/contents'>Artikel</NavBarMenu>
+        <NavBarMenu href='/tourism-potential'>Peta Potensi Wisata</NavBarMenu>
+        <NavBarMenu href='/tour-packages'>Paket Wisata</NavBarMenu>
       </div>
       <div className='my-8 lg:my-10 mx-4 xl:mx-60 md:mx-12 lg:mx-32 flex items-center flex-col'>
         {children}
