@@ -42,9 +42,10 @@ function TourPackageCard({
       </Head>
       <div
         onClick={handleClick} 
-        className="flex flex-col rounded-md duration-200 cursor-pointer relative"
+        className="flex md:flex-col rounded-md md:items-center duration-200 cursor-pointer relative"
       >
-        <div className='carousel-container relative w-full aspect-square mb-4 rounded overflow-hidden'>
+        <img src={imageUrls[0]} className='md:hidden h-16 w-16 object-cover rounded mr-3' />
+        <div className='carousel-container relative w-full aspect-square mb-4 rounded overflow-hidden hidden md:block'>
           <Swiper
             navigation={{
               enabled: true,

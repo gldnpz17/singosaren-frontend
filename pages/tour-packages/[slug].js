@@ -56,7 +56,7 @@ function TourPackageDetails({
         <title>{name} | Paket Wisata - bokongsemar.id</title>
       </Head>
       <div className='grid grid-cols-12 gap-6 w-full'>
-        <div className='col-span-8'>
+        <div className='col-span-12 md:col-span-8'>
           <h1 className='text-3xl h-12 font-bold mb-8'>{name}</h1>
           <div className='w-full h-96 mb-8 relative'>
             <Swiper
@@ -91,8 +91,8 @@ function TourPackageDetails({
             </div>
           </div>
         </div>
-        <div className='col-span-4'>
-          <div className='p-4 rounded border border-gray-200 mt-20 top-12 sticky'>
+        <div className='col-span-12 md:col-span-4'>
+          <div className='p-4 rounded border border-gray-200 md:mt-20 md:top-12 md:sticky'>
             <div className='font-semibold font-sans-serif'>Harga</div>
             <div className='font-semibold text-xl text-gray-500 mb-6'>{Format.currency(price)}</div>
             <div className='mb-1 text-sm'>Tertarik? Hubungi salah satu kontak berikut :</div>
