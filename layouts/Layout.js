@@ -45,6 +45,7 @@ export default function Layout({ children }) {
       <button
         onClick={scrollToTop} 
         className='fixed right-8 bottom-8 w-12 h-12 rounded-full bg-indigo-500 text-indigo-50 cursor-pointer'
+        style={{ zIndex: 1000 }}
       >
         <ChevronUp />
       </button>

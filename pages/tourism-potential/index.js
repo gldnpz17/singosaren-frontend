@@ -35,7 +35,7 @@ function TourismPotential({
       </Head>
       <div className="flex flex-col justify-center items-center w-full max-w-3xl scroll-smooth">
         <h1 className="font-bold text-2xl mb-8 w-full">Peta Potensi Pariwisata Singosaren</h1>
-        <div className="max-w-4xl w-full mb-8">
+        <div className="max-w-4xl sm:w-full mb-8 relative w-screen">
           <DynamicTourismPotentialMap
             baseMap={{
               bounds: [baseMap.width, baseMap.height],
