@@ -70,14 +70,14 @@ export default function Layout({ children }) {
           <NavBarButton href='/tour-packages'>Paket Wisata</NavBarButton>
         </div>
         <button 
-          className='h-8 w-8 hover:text-indigo-600 duration-150'
+          className='h-8 w-8 hover:text-indigo-600 duration-150 md:hidden'
           onClick={() => setIsNavOpen(!isNavOpen)}
         >
           {isNavOpen ? <Close /> : <Menu />}
         </button>
       </div>
       <div 
-        className={`${isNavOpen ? 'h-36' : 'h-0'} flex flex-col absolute top-16 bg-white left-0 right-0 overflow-hidden transition-all ease-in-out duration-300`}
+        className={`${isNavOpen ? 'h-36' : 'h-0'} md:hidden flex flex-col absolute top-16 bg-white left-0 right-0 overflow-hidden transition-all ease-in-out duration-300`}
         style={{ zIndex: 2000 }}
       >
         <NavBarMenu href='/contents'>Artikel</NavBarMenu>

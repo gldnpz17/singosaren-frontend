@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { LightboxProvider } from '../hooks/useLightbox'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }) {
         integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
         crossorigin=""></script>
       </Head>
-      <Component {...pageProps} />
+      <LightboxProvider>
+        <Component {...pageProps} />
+      </LightboxProvider>
     </>
   )
 }

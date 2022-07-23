@@ -11,6 +11,7 @@ import configs from "../../common/configs"
 import Head from "next/head"
 import { Facebook, Twitter, Whatsapp } from "../../common/icons"
 import HorizontalContentCard from "../../components/HorizontalContentCard"
+import PreviewableImage from "../../components/PreviewableImage"
 
 export async function getStaticPaths() {
   const contentIdentifiers = await fetchContentIdentifiers()
@@ -127,7 +128,7 @@ function ContentDetails({
         <meta property="og:image"         content={coverImageUrl} />
       </Head>
       <div className='w-full max-w-2xl'>
-        <img className='mb-4 rounded' src={coverImageUrl} />
+        <PreviewableImage src={coverImageUrl} className='mb-4' />
         <div className='mb-4'>
           <div className='mt-1 mb-2 flex space-x-2 items-center'>
             {tags.map(tag => 
@@ -152,7 +153,7 @@ function ContentDetails({
             components={{
               img: ({ node, ...props }) => (
                 <span>
-                  <img {...props} className={`${props.className ?? ''} rounded mb-0`} />
+                  <PreviewableImage {...props} className={`${props.className ?? ''} mb-0`} />
                   <span className='text-gray-500 block'>{props.alt}</span>
                 </span>
               )
