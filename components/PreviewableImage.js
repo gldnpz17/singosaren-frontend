@@ -13,7 +13,7 @@ function PreviewableImage({ src, className }) {
       >
         <Zoom />
       </button>
-      <img src={src} className='h-full m-0 not-prose object-cover' />
+      <img src={src} className='h-full max-h-96 w-full m-0 not-prose object-cover' />
     </span>
   )
 }
